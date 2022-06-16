@@ -31,7 +31,9 @@ module.exports = {
     new ModuleFederationPlugin({
       name: "app-shell",
       remotes: {
+        basket: `basket@${getRemoteEntryUrl(8001)}`,
         product: `product@${getRemoteEntryUrl(8002)}`,
+        signin: `signin@${getRemoteEntryUrl(8003)}`,
       },
       shared: { react: { singleton: true }, "react-dom": { singleton: true } },
     }),

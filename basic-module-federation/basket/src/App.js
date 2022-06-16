@@ -1,13 +1,10 @@
+import LocalButton from "./Button";
 import React from "react";
 
-const RemoteButton = React.lazy(() => import("product/Button"));
-
 const App = () => (
-  <div style={{ padding: "5px", border: "5px dotted green" }}>
+  <div>
     <h1>Basket App</h1>
-    <React.Suspense fallback="Loading Button">
-      <RemoteButton />
-    </React.Suspense>
+    <LocalButton />
   </div>
 );
 

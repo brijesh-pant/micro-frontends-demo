@@ -16,5 +16,8 @@
   },
   "devDependencies": {
     "lerna": "3.22.1"
+  },
+  "dependencies": {
+    "react-router-dom": "^6.3.0"
   }
 }
