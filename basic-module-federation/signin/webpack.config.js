@@ -34,6 +34,7 @@ module.exports = {
       filename: "remoteEntry.js",
       exposes: {
         "./App": "./src/App",
+        "./SignOutButton": "./src/SignOutButton",
       },
       shared: {
         react: { singleton: true, requiredVersion: deps["react"] },

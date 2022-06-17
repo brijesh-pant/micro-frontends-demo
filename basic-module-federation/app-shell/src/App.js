@@ -1,9 +1,10 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { HashRouter, Switch, Route, Redirect } from "react-router-dom";
 import ECommerceApp from "./ECommerceApp";
 
 const SignInApp = React.lazy(() => import("signin/App"));
+const SignOutButton = React.lazy(() => import("signin/SignOutButton"));
 
 const RequireAuth = ({ children }) => {
   if (!localStorage.getItem("token")) {
@@ -18,37 +19,42 @@ const RequireAuth = ({ children }) => {
 };
 
 const App = () => (
-  <Box
-    style={{
-      height: "100vh",
-      padding: "5px",
-      border: "5px dotted green",
-      display: "flex",
-      flexDirection: "column",
-    }}
-  >
-    <Typography variant="h1" component="div" gutterBottom>
-      Minimal ECommerce App
-    </Typography>
-    <React.Suspense fallback="Loading Button">
-      <Switch>
-        <Route path="/about">
-          <div>
-            <h2>About</h2>
-          </div>
-        </Route>
-        <Route exact path="/">
-          <RequireAuth>
-            <ECommerceApp />
-          </RequireAuth>
-        </Route>
-        <Route exact path="/signin">
-          <SignInApp />
-        </Route>
-        <Route exact path="*" render={<Redirect to="/signin" replace />} />
-      </Switch>
-    </React.Suspense>
-  </Box>
+  <HashRouter>
+    <Box
+      style={{
+        height: "100vh",
+        padding: "5px",
+        border: "5px dotted green",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <Typography variant="h1" component="div" gutterBottom>
+        Minimal ECommerce App
+      </Typography>
+      <React.Suspense fallback="Loading...">
+        <Switch>
+          <Route exact path="/">
+            <RequireAuth>
+              <>
+                <Box
+                  width="150px"
+                  style={{ position: "absolute", top: "50px", right: "20px" }}
+                >
+                  <SignOutButton />
+                </Box>
+                <ECommerceApp />
+              </>
+            </RequireAuth>
+          </Route>
+          <Route exact path="/signin">
+            <SignInApp />
+          </Route>
+          <Route exact path="*" render={<Redirect to="/signin" replace />} />
+        </Switch>
+      </React.Suspense>
+    </Box>
+  </HashRouter>
 );
 
 export default App;
